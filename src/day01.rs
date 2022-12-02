@@ -36,25 +36,24 @@ pub fn solve() {
     }
     println!("Elves {}", elves.len());
     part1(&elves);
-    part2(&elves, 3);
+    part2(&mut elves, 3);
 }
 
 fn part1(elves: &Vec<Elf>) {
     println!("* Part 1 *");
-    match elves.iter().max_by_key(|e| (*e).total()) {
+    match elves.iter().max_by_key(|e| (**e).total()) {
         None => println!("No elves found."),
         Some(e) => println!("Name {}, calories: {}.", e.name, e.total())
     }
 }
 
-fn part2(elves: &Vec<Elf>, num: usize) {
+fn part2(elves: &mut Vec<Elf>, num: usize) {
     println!("* Part 2 *");
-    let mut sorted_elves = elves.clone();
-    sorted_elves.sort_by_cached_key(|e| (*e).total());
-    if num < sorted_elves.len() {
-        let total_num = sorted_elves[sorted_elves.len() - num..]
+    elves.sort_by_cached_key(Elf::total);
+    if num < elves.len() {
+        let total_num = elves[elves.len() - num..]
             .iter()
-            .map(|e| (*e).total())
+            .map(Elf::total)
             .sum::<i32>();
         println!("Total {}: {}", num, total_num);
     }
