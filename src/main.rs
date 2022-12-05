@@ -1,7 +1,7 @@
-mod day04;
+mod day05;
 
 fn main() {
     println!("Hello, world!");
 
-    day04::solve();
+    day05::solve();
 }
