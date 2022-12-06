@@ -24,7 +24,6 @@ impl std::str::FromStr for Move {
 pub fn solve() {
     println!("*** Day 05 ***");
 
-//    let s = std::fs::read_to_string("input/day05/example.txt").expect("peut");
     let s = std::fs::read_to_string("input/day05/input.txt").expect("peut");
     let (stacks, moves) = parse_input(&s);
 
@@ -75,9 +74,9 @@ fn part1(stacks: &Vec<Vec<char>>, moves: &Vec<Move>) {
 
     for m in moves {
         for _ in 0..m.amount {
-            if !result[m.from-1].is_empty() {
-                let c = result[m.from-1].pop().unwrap();
-                result[m.to-1].push(c);    
+            match result[m.from-1].pop() {
+                Some(c) => result[m.to-1].push(c),
+                _ => {}
             }
         }
     }
